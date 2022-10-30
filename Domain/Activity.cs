@@ -1,5 +1,7 @@
+using Domain.Interface;
+
 namespace Domain;
-public class Activity
+public class Activity : IActivity
 {
     public Guid Id { get; set; }
     public string Title { get; set; } = string.Empty;

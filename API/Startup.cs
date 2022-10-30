@@ -1,13 +1,15 @@
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Persistence;
 
 namespace API;
 public class Startup
 {
-    private readonly IConfiguration _configuration;
+    private readonly IConfiguration _config;
        
-    public Startup(IConfiguration configuration)
+    public Startup(IConfiguration config)
     {
-        _configuration = configuration;
+        _config = config;
     }
 
 
@@ -19,6 +21,9 @@ public class Startup
         services.AddSwaggerGen(c =>
         {
             c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPIv5", Version = "v1" });
+        });
+        services.AddDbContext<DataContext>(opts => {
+            opts.UseSqlite(_config.GetConnectionString("DefaultConnection"));
         });
     }
 
